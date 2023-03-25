@@ -28,10 +28,10 @@ app.get('/', (req, res) => {
 })
 
 app.post('/', (req, res) => {
-  con.query(`UPDATE Memory SET value = ${newNumber} WHERE idMemory = ${userId}`, function (err, result) {
+  con.query(`UPDATE Memory SET value = ${req.query.number} WHERE idMemory = ${req.query.user}`, function (err, result) {
     if (err) throw err;
     console.log(result.affectedRows + " record updated");
-    res.send(result);
+    res.status(200).send(result);
   });
 })
 
