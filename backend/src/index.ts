@@ -1,10 +1,11 @@
 import express from "express";
 import mysql from "mysql";
+import cors from "cors";
+
 const app = express();
 
 var port = 4000;
 var userId = 1;
-var newNumber = 4;
 
 var con = mysql.createConnection({
   port: 3306,
@@ -14,6 +15,10 @@ var con = mysql.createConnection({
   password: "password"
 });
 
+app.use(cors({ origin: "http://localhost:3000", credentials: true }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 con.connect(function(err) {
   if(err) throw err;
   console.log("Connected!");
@@ -22,13 +27,14 @@ con.connect(function(err) {
 app.get('/', (req, res) => {
   con.query(`SELECT * FROM Memory WHERE idMemory=${userId}`, function (err, result) {
     if (err) throw err;
-    console.log(result);
-    res.send(result);
+    console.log('get result', result[0]);
+    res.send(result[0]);
   });
 })
 
 app.post('/', (req, res) => {
-  con.query(`UPDATE Memory SET value = ${req.query.number} WHERE idMemory = ${req.query.user}`, function (err, result) {
+  console.log(req.body)
+  con.query(`UPDATE Memory SET value = ${req.body.number} WHERE idMemory = ${req.body.user}`, function (err, result) {
     if (err) throw err;
     console.log(result.affectedRows + " record updated");
     res.status(200).send(result);

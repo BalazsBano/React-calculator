@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, Card, Container, Row, Col } from 'react-bootstrap';
 import { DigitButton } from '../DigitButton';
 import { OperationButton } from '../OperationButton';
+import { memoryGetRequest, memoryPostRequest } from '../../api/memoryRequest';
 
 export interface ITheme {
   theme: string;
@@ -45,9 +46,7 @@ export function Calculator(Theme: ITheme) {
     if (!prevValue || !operation) return currentValue;
     const curr = parseFloat(currentValue);
     const prev = parseFloat(prevValue);
-    console.log("curr", curr);
-    console.log("prev", prev);
-    let result;
+    let result = 0;
     switch (operation) {
       case "÷":
         result = prev / curr;
@@ -61,12 +60,34 @@ export function Calculator(Theme: ITheme) {
       case "+":
         result = prev + curr;
         break;
+      case "M+":
+        result = curr;
+        break;
+      case "M-":
+        result = curr;
+        break;
     }
     console.log("result", result);
     return result;
   };
 
-  const selectOperation = (operation: string) => {
+  const selectOperation = async (operation: string) => {
+    if (currentValue) {
+      const curr = parseFloat(currentValue);
+      switch (operation) {
+        case "M+":
+          console.log(curr, operation);
+          memoryPostRequest(curr)
+          break;
+        case "M-":
+          const getRequest = await memoryGetRequest();
+          const result = getRequest.data.value
+          setCurrentValue(result)
+          setPrevValue(result);
+          console.log(result)
+          break;
+      }
+    }
     if (prevValue) {
       const val = calculate();
       setCurrentValue(`${val}`);
