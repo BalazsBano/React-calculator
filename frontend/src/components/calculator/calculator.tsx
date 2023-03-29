@@ -1,15 +1,11 @@
 import 'bootstrap/dist/css/bootstrap.css';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Button, Card, Container, Row, Col } from 'react-bootstrap';
 import { DigitButton } from '../DigitButton';
 import { OperationButton } from '../OperationButton';
 import { memoryGetRequest, memoryPostRequest } from '../../api/memoryRequest';
 
-export interface ITheme {
-  theme: string;
-}
-
-export function Calculator(Theme: ITheme) {
+export function Calculator() {
   const [prevValue, setPrevValue] = useState("");
   const [currentValue, setCurrentValue] = useState("0");
   const [operation, setOperation] = useState("");
@@ -67,7 +63,6 @@ export function Calculator(Theme: ITheme) {
         result = curr;
         break;
     }
-    console.log("result", result);
     return result;
   };
 
@@ -76,7 +71,6 @@ export function Calculator(Theme: ITheme) {
       const curr = parseFloat(currentValue);
       switch (operation) {
         case "M+":
-          console.log(curr, operation);
           memoryPostRequest(curr)
           break;
         case "M-":
@@ -84,7 +78,6 @@ export function Calculator(Theme: ITheme) {
           const result = getRequest.data.value
           setCurrentValue(result)
           setPrevValue(result);
-          console.log(result)
           break;
       }
     }

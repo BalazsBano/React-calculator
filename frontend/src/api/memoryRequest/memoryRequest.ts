@@ -1,7 +1,8 @@
 import axios from "axios";
+import { API_URL, USER } from "../../configuration/env";
 
-const url: string = "http://localhost:4000/";
-const user: number = 1;
+const url: string = API_URL || "";
+const user: number = Number(USER || "");
 
 export async function memoryGetRequest() {
   try {
