@@ -27,7 +27,6 @@ export async function memoryGetRequest() {
 }
 
 export async function memoryPostRequest(value: number) {
-  console.log('post', value)
   let dataObject = { user: user, number: value}
   try {
     const res = await axios({

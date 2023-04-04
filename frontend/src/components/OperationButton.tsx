@@ -12,10 +12,12 @@ export const OperationButton: React.FC<OperationButtonProps> = ({
   selectOperation,
 }) => {
   return (
-    <Button className={'col-12'}
-    onClick={() => selectOperation(operation)} 
+    <Button 
+      variant={'outline-light'} 
+      className={'col-12'}
+      onClick={() => selectOperation(operation)} 
     >
-      {operation}
+       {operation}
     </Button>
   )
 }

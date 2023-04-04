@@ -1,6 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import React, { useState } from 'react';
-import { Button, Card, Container, Row, Col } from 'react-bootstrap';
+import { Button, Container, Row, Col } from 'react-bootstrap';
 import { DigitButton } from '../DigitButton';
 import { OperationButton } from '../OperationButton';
 import { memoryGetRequest, memoryPostRequest } from '../../api/memoryRequest';
@@ -94,17 +94,17 @@ export function Calculator() {
 
   return(
     <div className='calculator pt-5'>
-      <Container className={`calculator-container py-4 col-md-6 offset-md-3 col-sm-12 border border-primary rounded`}>
+      <Container className={`calculator-container bg-info shadow-lg py-4 col-md-6 offset-md-3 col-sm-12 border border-light rounded`}>
         <Row className='calculator-display-row'>
-          <Col className='px-4'>
-            <Card className='calculator-display border border-primary rounded'>
-              <Card.Body className='d-flex justify-content-end'>{currentValue}</Card.Body>
-            </Card>
+          <Col className='px-4 col-sm-12'>
+            <div className='calculator-display p-1 border border-light rounded text-white'>
+              <p className='d-flex py-1 mx-3 my-auto justify-content-end'>{currentValue}</p>
+            </div>
           </Col>
         </Row>
         <Container className='calculator-button-container'>
           <Row className='mt-2 d-flex'>
-            <Col><OperationButton className='ac-btn' operation={"AC"} selectOperation={clear}/></Col>
+            <Col><OperationButton className='' operation={"AC"} selectOperation={clear}/></Col>
             <Col><OperationButton className='' operation={"M+"} selectOperation={selectOperation}/></Col>
             <Col><OperationButton className='' operation={"M-"} selectOperation={selectOperation}/></Col>
             <Col><OperationButton className='' operation={"÷"} selectOperation={selectOperation}/></Col>
@@ -130,7 +130,7 @@ export function Calculator() {
           <Row className='mt-2'>
             <Col><DigitButton className='' digit={"0"} enterDigit={setDigit}/></Col>
             <Col><DigitButton className='' digit={"."} enterDigit={setDigit}/></Col>
-            <Col><Button className='col-12' onClick={equals}>=</Button></Col>
+            <Col><Button variant="outline-light" className='col-12' onClick={equals}>=</Button></Col>
           </Row>
         </Container>
       </Container>

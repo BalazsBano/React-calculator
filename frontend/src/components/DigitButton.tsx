@@ -12,7 +12,11 @@ export const DigitButton: React.FC<DigitButtonProps> = ({
   enterDigit,
 }) => {
   return (
-    <Button className={'col-12'} onClick={() => enterDigit(digit)}>
+    <Button 
+      variant={'outline-light'}
+      className={'col-12'} 
+      onClick={() => enterDigit(digit)}
+    >
       {digit}
     </Button>
   )
